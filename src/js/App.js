@@ -71,6 +71,7 @@ export default class App extends Component {
       updateItem: updateItem.bind(this),
       currentTime: currentTime.bind(this),
       setWorkCount: setWorkCount.bind(this),
+      inputFocus: inputFocus.bind(this),
     });
     new ItemAdd($itemAdd, {
       items: this.state.items,

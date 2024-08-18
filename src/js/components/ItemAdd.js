@@ -33,6 +33,9 @@ export default class ItemAdd extends Component {
           workState: 'wait',
           write: false,
         });
+
+        inputFocus('.title');
+        setWorkCount();
       }
     };
 
@@ -42,16 +45,12 @@ export default class ItemAdd extends Component {
     // 클릭 이벤트
     this.addEvent('click', '.addBtn', () => {
       inputCheck();
-      inputFocus('.title');
-      setWorkCount();
     });
 
     // enter키 이벤트
     this.addEvent('keyup', '.title, .contents', e => {
       if (e.key === 'Enter') {
         inputCheck();
-        inputFocus('.title');
-        setWorkCount();
       }
     });
   }

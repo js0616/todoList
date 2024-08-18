@@ -19,11 +19,12 @@ export default class Item extends Component {
     `;
   }
   setEvent() {
-    const { item, updateItem, setWorkCount } = this.props;
+    const { item, updateItem, setWorkCount, inputFocus } = this.props;
 
     this.addEvent('click', '.updateBtn', () => {
       item.write = true;
       updateItem(item);
+      inputFocus(`[data-Item${item.seq}] .upTitle`);
     });
 
     this.addEvent('change', '.workState', e => {

@@ -17,8 +17,14 @@ export default class ItemList extends Component {
     `;
   }
   mounted() {
-    const { items, updateItem, currentTime, filterVal, setWorkCount } =
-      this.props;
+    const {
+      items,
+      updateItem,
+      currentTime,
+      filterVal,
+      setWorkCount,
+      inputFocus,
+    } = this.props;
 
     items.map(item => {
       // workState 적용 - all 이거나 필터값과 같을때,
@@ -37,6 +43,7 @@ export default class ItemList extends Component {
               item: item,
               updateItem: updateItem,
               setWorkCount: setWorkCount,
+              inputFocus: inputFocus,
             })
         : '';
     });
