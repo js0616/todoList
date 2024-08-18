@@ -1,4 +1,5 @@
 // src/components/Item.js
+
 import Component from '../core/Component.js';
 
 export default class Item extends Component {

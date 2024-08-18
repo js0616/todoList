@@ -14,6 +14,7 @@ export default class ItemFilter extends Component {
         <button class='filterBtn' value ='end'>종료(${workCount.end})</button>
     `;
   }
+
   setEvent() {
     const { setFilter } = this.props;
 
