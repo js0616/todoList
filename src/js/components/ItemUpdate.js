@@ -14,7 +14,8 @@ export default class ItemUpdate extends Component {
   }
 
   setEvent() {
-    const { item, updateItem, currentTime } = this.props;
+    const { item, updateItem, currentTime, setSort } = this.props;
+
     this.addEvent('click', '.upBtn', () => {
       let title = document.querySelector(
         `[data-Item${item.seq}] .upTitle`,
@@ -32,6 +33,7 @@ export default class ItemUpdate extends Component {
         item.write = false;
         item.date = currentTime();
         updateItem(item);
+        setSort();
       }
     });
   }

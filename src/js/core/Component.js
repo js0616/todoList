@@ -9,6 +9,7 @@ export default class Component {
     this.setup();
     this.render();
     this.setEvent();
+    this.loaded();
   }
   setup() {} // 초기 상태를 설정
   mounted() {} // render 이후 동작
@@ -19,6 +20,7 @@ export default class Component {
     this.mounted(); //  render 후에 mounted가 실행 된다.
   }
   setEvent() {} // 이벤트 작성
+  loaded() {} // 페이지 loading 이후 실행
   setState(newState) {
     // 상태 업데이트
     this.state = { ...this.state, ...newState };

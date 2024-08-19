@@ -14,7 +14,8 @@ export default class ItemAdd extends Component {
   }
 
   setEvent() {
-    const { addItem, currentTime, inputFocus, setWorkCount } = this.props;
+    const { addItem, currentTime, inputFocus, setWorkCount, setSort } =
+      this.props;
 
     let inputCheck = () => {
       let title = document.querySelector('.title').value;
@@ -37,6 +38,7 @@ export default class ItemAdd extends Component {
 
         inputFocus('.title');
         setWorkCount();
+        setSort();
       }
     };
 

@@ -25,6 +25,8 @@ export default class ItemList extends Component {
       filterVal,
       setWorkCount,
       inputFocus,
+      deleteItem,
+      setSort,
     } = this.props;
 
     items.map(item => {
@@ -38,6 +40,7 @@ export default class ItemList extends Component {
                 item: item,
                 updateItem: updateItem,
                 currentTime: currentTime,
+                setSort: setSort,
               },
             )
           : new Item(this.$target.querySelector(`[data-Item${item.seq}]`), {
@@ -45,6 +48,7 @@ export default class ItemList extends Component {
               updateItem: updateItem,
               setWorkCount: setWorkCount,
               inputFocus: inputFocus,
+              deleteItem: deleteItem,
             })
         : '';
     });

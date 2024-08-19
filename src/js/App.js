@@ -5,6 +5,7 @@ import Component from './core/Component.js';
 import ItemList from './components/ItemList.js';
 import ItemAdd from './components/ItemAdd.js';
 import ItemFilter from './components/ItemFilter.js';
+import ItemSort from './components/ItemSort.js';
 
 export default class App extends Component {
   // 초기 state
@@ -12,23 +13,35 @@ export default class App extends Component {
     this.state = {
       items: [
         {
-          seq: 1,
-          title: '선배!!',
-          contents: '마라탕 사주세요',
-          date: '2024.08.17. 02:43',
+          seq: 2,
+          title: '그럼 혹시..',
+          contents: '탕후루도 같이?',
+          date: '2024.08.17. 02:45:00',
           workState: 'wait',
           write: false,
         },
         {
-          seq: 2,
-          title: '그럼 혹시..',
-          contents: '탕후루도 같이?',
-          date: '2024.08.17. 02:45',
+          seq: 1,
+          title: '선배!!',
+          contents: '마라탕 사주세요',
+          date: '2024.08.17. 02:43:00',
+          workState: 'wait',
+          write: false,
+        },
+        {
+          seq: 3,
+          title: '웅나!',
+          contents: '웅나나?',
+          date: '2024.08.19. 20:00:00',
           workState: 'wait',
           write: false,
         },
       ],
       filterVal: 'all',
+      sortVal: {
+        type: 'date',
+        way: 'desc',
+      },
       workCount: {
         all: 0,
         wait: 0,
@@ -43,6 +56,7 @@ export default class App extends Component {
     return `
     <div data-component="itemAdd"></div>
     <div data-component="itemFilter"></div>
+    <div data-component="ItemSort"></div>
     <div data-component="itemList" class="itemList"></div>
     `;
   }
@@ -56,6 +70,9 @@ export default class App extends Component {
       updateItem,
       setFilter,
       setWorkCount,
+      deleteItem,
+      setSortType,
+      setSort,
     } = this;
 
     const $itemList = this.$target.querySelector('[data-component="itemList"]');
@@ -63,6 +80,7 @@ export default class App extends Component {
     const $ItemFilter = this.$target.querySelector(
       '[data-component="itemFilter"]',
     );
+    const $ItemSort = this.$target.querySelector('[data-component="ItemSort"]');
 
     // new 컴포넌트명('DOM'위치 , 전달할 props)
     new ItemList($itemList, {
@@ -72,6 +90,8 @@ export default class App extends Component {
       currentTime: currentTime.bind(this),
       setWorkCount: setWorkCount.bind(this),
       inputFocus: inputFocus.bind(this),
+      deleteItem: deleteItem.bind(this),
+      setSort: setSort.bind(this),
     });
     new ItemAdd($itemAdd, {
       items: this.state.items,
@@ -79,11 +99,23 @@ export default class App extends Component {
       currentTime: currentTime.bind(this),
       inputFocus: inputFocus.bind(this),
       setWorkCount: setWorkCount.bind(this),
+      setSort: setSort.bind(this),
     });
     new ItemFilter($ItemFilter, {
       workCount: this.state.workCount,
       setFilter: setFilter.bind(this),
     });
+    new ItemSort($ItemSort, {
+      sortVal: this.state.sortVal,
+      setSortType: setSortType.bind(this),
+      setSort: setSort.bind(this),
+    });
+  }
+
+  // 페이지 로딩 이후 1회만 실행할 기능
+  loaded() {
+    this.setWorkCount();
+    this.setSort();
   }
 
   /** setState 함수 */
@@ -117,6 +149,40 @@ export default class App extends Component {
     });
 
     this.setState(items);
+  }
+
+  // 삭제하기
+  deleteItem(contents) {
+    // contents : Item.seq 를 받아온다.
+    let seqArray = this.state.items.map(item => item.seq);
+    let delIndex = seqArray.findIndex(item => item == contents);
+    this.setState(this.state.items.splice(delIndex, 1));
+  }
+
+  // 정렬 옵션
+  setSortType(value) {
+    let { type, way } = this.state.sortVal;
+
+    if (['title', 'date'].includes(value)) {
+      this.setState({ sortVal: { type: value, way: way } });
+    } else {
+      this.setState({ sortVal: { type: type, way: value } });
+    }
+  }
+
+  // items 정렬
+  setSort() {
+    const { type, way } = this.state.sortVal;
+    const items = [...this.state.items];
+    let sorted_items = items.slice();
+    // sorted_items.sort((item1, item2) => item1.seq - item2.seq); // 숫자
+    sorted_items.sort((item1, item2) =>
+      way == 'asc'
+        ? item1[type].localeCompare(item2[type])
+        : item2[type].localeCompare(item1[type]),
+    );
+
+    this.setState({ items: sorted_items });
   }
 
   // 필터 값 변경
@@ -156,7 +222,7 @@ export default class App extends Component {
     const hours = String(now.getHours()).padStart(2, '0');
     const minutes = String(now.getMinutes()).padStart(2, '0');
     const seconds = String(now.getSeconds()).padStart(2, '0');
-    const formattedDate = `${year}.${month}.${day} ${hours}:${minutes}`;
+    const formattedDate = `${year}.${month}.${day} ${hours}:${minutes}:${seconds}`;
     return formattedDate;
   }
 }
