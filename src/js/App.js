@@ -1,6 +1,5 @@
 // src/app.js
 // state , method 관리
-
 import Component from './core/Component.js';
 import ItemList from './components/ItemList.js';
 import ItemAdd from './components/ItemAdd.js';
