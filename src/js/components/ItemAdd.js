@@ -32,8 +32,6 @@ export default class ItemAdd extends Component {
           title: title,
           contents: contents,
           date: date,
-          workState: 'wait',
-          write: false,
         });
 
         inputFocus('.title');

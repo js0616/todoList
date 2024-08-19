@@ -17,6 +17,7 @@ export default class ItemUpdate extends Component {
     const { item, updateItem, currentTime, setSort } = this.props;
 
     this.addEvent('click', '.upBtn', () => {
+      // dom
       let title = document.querySelector(
         `[data-Item${item.seq}] .upTitle`,
       ).value;
@@ -25,14 +26,18 @@ export default class ItemUpdate extends Component {
       ).value;
       let error = document.querySelector(`[data-Item${item.seq}] .error`);
 
+      // 로직
       if (title == '' || contents == '') {
         error.innerHTML = '입력 값을 확인해 주세요';
       } else {
-        item.title = title;
-        item.contents = contents;
-        item.write = false;
-        item.date = currentTime();
-        updateItem(item);
+        // title, contents, date,  + write
+        let newItem = {
+          title: title,
+          contents: contents,
+          date: currentTime(),
+          write: false,
+        };
+        updateItem(item.seq, newItem);
         setSort();
       }
     });

@@ -19,6 +19,7 @@ export default class App extends Component {
           date: '2024.08.17. 02:45:00',
           workState: 'wait',
           write: false,
+          modal: false,
         },
         {
           seq: 1,
@@ -27,6 +28,7 @@ export default class App extends Component {
           date: '2024.08.17. 02:43:00',
           workState: 'wait',
           write: false,
+          modal: false,
         },
         {
           seq: 3,
@@ -35,6 +37,7 @@ export default class App extends Component {
           date: '2024.08.19. 20:00:00',
           workState: 'wait',
           write: false,
+          modal: false,
         },
       ],
       filterVal: 'all',
@@ -116,6 +119,7 @@ export default class App extends Component {
   loaded() {
     this.setWorkCount();
     this.setSort();
+    console.log('loaded', this.state);
   }
 
   /** setState 함수 */
@@ -123,40 +127,45 @@ export default class App extends Component {
   addItem(NewContent) {
     const items = [...this.state.items];
     const seq = Math.max(0, ...items.map(v => v.seq)) + 1;
-    const { title, contents, date, workState, write } = NewContent;
+    const { title, contents, date } = NewContent;
 
     this.setState({
-      items: [...items, { seq, title, contents, date, workState, write }],
+      items: [
+        ...items,
+        {
+          seq,
+          title,
+          contents,
+          date,
+          workState: 'wait',
+          write: false,
+          modal: false,
+        },
+      ],
     });
   }
 
-  // 수정하기
-  updateItem(NewContent) {
-    const items = [...this.state.items];
-    const { seq, title, contents, date, workState, write } = NewContent;
+  /** seq, {'key', NewVal} */
+  updateItem(seq, NewItem) {
+    // 깊은 복사 structuredClone 사용 -> IE 호환성 확인
+    let items = structuredClone(this.state.items);
+    let seqArray = items.map(item => item.seq);
+    let updateIndex = seqArray.findIndex(item => item == seq);
 
-    items.map(item => {
-      return item.seq == seq
-        ? {
-            seq: seq,
-            title: title,
-            contents: contents,
-            date: date,
-            workState: workState,
-            write: write,
-          }
-        : item;
-    });
-
-    this.setState(items);
+    for (let key in NewItem) {
+      items[updateIndex][key] = NewItem[key];
+    }
+    this.setState({ items: items });
   }
 
   // 삭제하기
-  deleteItem(contents) {
-    // contents : Item.seq 를 받아온다.
+  deleteItem(itemSeq) {
+    // 삭제할 seq 번호를 가져오고 임시배열items 에서 제거 후 state 에 반영
+    let items = [...this.state.items];
     let seqArray = this.state.items.map(item => item.seq);
-    let delIndex = seqArray.findIndex(item => item == contents);
-    this.setState(this.state.items.splice(delIndex, 1));
+    let delIndex = seqArray.findIndex(item => item == itemSeq);
+    items.splice(delIndex, 1);
+    this.setState({ items: items });
   }
 
   // 정렬 옵션

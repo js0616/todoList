@@ -1,6 +1,7 @@
 // src/components/Item.js
 
 import Component from '../core/Component.js';
+import ItemModal from './ItemModal.js';
 
 export default class Item extends Component {
   template() {
@@ -17,26 +18,32 @@ export default class Item extends Component {
 		  </select>
       <button class='updateBtn'>수정</button>
       <button class='deleteBtn'>삭제</button> 
+      <button class='modalBtn'>모달</button>
+      <div class='modal'></div>
     `;
   }
   setEvent() {
     const { item, updateItem, setWorkCount, inputFocus, deleteItem } =
       this.props;
-
     this.addEvent('click', '.updateBtn', () => {
-      item.write = true;
-      updateItem(item);
+      updateItem(item.seq, { write: true });
       inputFocus(`[data-Item${item.seq}] .upTitle`);
     });
 
     this.addEvent('change', '.workState', e => {
-      item.workState = e.target.value;
-      updateItem(item);
+      updateItem(item.seq, { workState: e.target.value });
       setWorkCount();
     });
 
     this.addEvent('click', '.deleteBtn', () => {
       deleteItem(item.seq);
+      setWorkCount();
+    });
+
+    this.addEvent('click', '.modal', () => {
+      new ItemModal(
+        this.$target.querySelector(`[data-Item${item.seq}] .modal`),
+      );
     });
   }
 }
