@@ -16,11 +16,28 @@ export default class Item extends Component {
         <option value='going' ${item.workState === 'going' ? 'selected' : ''}>진행중</option>
         <option value='end' ${item.workState === 'end' ? 'selected' : ''}>종료</option>
 		  </select>
-      <button class='updateBtn'>수정</button>
-      <button class='deleteBtn'>삭제</button> 
-      <button class='modalBtn'>모달</button>
-      <div class='modal'></div>
+      <div class='btns'>
+        ${
+          item.workState == 'end'
+            ? ''
+            : "<button class='updateBtn'>수정</button> <button class='deleteBtn'>삭제</button> <button class='modalBtn'>모달</button>"
+        }
+      </div>
+      ${item.modal ? "<div class='modalBox'></div>" : ''}
     `;
+  }
+  mounted() {
+    const { item, updateItem, currentTime, inputFocus } = this.props;
+    item.modal
+      ? new ItemModal(
+          this.$target.querySelector(`[data-Item${item.seq}] .modalBox`),
+          {
+            item: item,
+            updateItem: updateItem,
+            currentTime: currentTime,
+          },
+        )
+      : '';
   }
   setEvent() {
     const { item, updateItem, setWorkCount, inputFocus, deleteItem } =
@@ -40,10 +57,9 @@ export default class Item extends Component {
       setWorkCount();
     });
 
-    this.addEvent('click', '.modal', () => {
-      new ItemModal(
-        this.$target.querySelector(`[data-Item${item.seq}] .modal`),
-      );
+    this.addEvent('click', '.modalBtn', () => {
+      updateItem(item.seq, { modal: true });
+      inputFocus(`[data-Item${item.seq}] .mdTitle`);
     });
   }
 }

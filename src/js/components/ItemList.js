@@ -49,6 +49,7 @@ export default class ItemList extends Component {
               setWorkCount: setWorkCount,
               inputFocus: inputFocus,
               deleteItem: deleteItem,
+              currentTime: currentTime,
             })
         : '';
     });

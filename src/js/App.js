@@ -155,6 +155,7 @@ export default class App extends Component {
       items[updateIndex][key] = NewItem[key];
     }
     this.setState({ items: items });
+    console.log('update : ', this.state);
   }
 
   // 삭제하기
@@ -217,6 +218,10 @@ export default class App extends Component {
   inputFocus(focusSelector) {
     let newFocus = document.querySelector(focusSelector);
     newFocus.focus();
+
+    // 커서를 맨 뒤로 이동시키기
+    const length = newFocus.value.length; // 현재 입력 값의 길이
+    newFocus.setSelectionRange(length, length); // 커서 위치를 설정
   }
 
   // 현재 시간
