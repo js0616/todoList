@@ -1,4 +1,23 @@
 // src/sass/partials/_body.scss
-body {
+*{
+    padding: 0;
+    margin: 0;
+    font-size: $font_size_small;
+    font-family: $font_family;
+    color:$color_font;
+}
 
+select, button, option{
+    border: none;
+    cursor: pointer;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+}
+
+#app{
+    width: $box_size;
+    margin-top: 100px;
 }

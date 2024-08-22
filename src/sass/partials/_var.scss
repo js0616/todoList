@@ -1,6 +1,34 @@
 // src/sass/partials/_vars.scss
-// $font_color: red;
-// $font_family: Arial, sans-serif;
-// $font_size: 32px;
-// $line_height: percentage(calc(20px / $font_size));
-// $box_size : 100px
+
+// font
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+$font_family: 'Pretendard-Regular', arial, sans-serif;
+
+$font_size_small: 18px;
+$font_size_medium: 24px;
+
+// color
+// $color_main: lightcoral;
+$color_main: lightskyblue;
+$color_bg: lighten($color_main, 23);
+$color_font: darken($color_main, 20);
+$color_error : darken(red , 3);
+$color_btn : lighten($color_main, 7);
+$color_btn_active : darken($color_main, 5);
+
+
+// size
+$box_size : 500px;
+$padding_samll : 10px;
+$padding_medium : 20px;
+$btn_width : 90px;
+$btn_height : 40px;
+
+// ItemAdd 배경용
+$background_line : $font_size_small*2;

@@ -1,0 +1,51 @@
+#itemList{
+    .item {
+        padding: $padding_samll;
+        margin: $padding_samll 0;
+        border: 2px solid $color_main;
+
+        background-color: $color_bg;
+
+        .title{
+            padding: $padding_samll;
+            font-size: $font_size_medium;
+            font-weight: bold;
+        }
+
+        .contents{
+            padding: 0 $padding_samll;
+        }
+
+        .date{
+            padding: $padding_samll;
+        }
+
+        .btns{
+            padding: $padding_samll;
+            
+            select , button{
+                text-align: center;
+                border: 1px solid $color_main;
+                width: $btn_width;
+                background-color: white;
+            }
+
+            select{
+                color: white;
+                background-color: $color_btn_active;
+                option{
+                    background-color: white;
+                }
+            }
+            
+
+            
+            button:hover{
+                background-color: $color_btn_active;
+                color: white;
+            }
+        }
+
+
+    }
+}

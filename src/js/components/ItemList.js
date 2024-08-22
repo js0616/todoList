@@ -9,7 +9,7 @@ export default class ItemList extends Component {
     const { items, filterVal } = this.props;
     let ItemDiv = items.map(item => {
       return filterVal == 'all' || filterVal == item.workState
-        ? `<div data-Item${item.seq} ></div>`
+        ? `<div data-Item${item.seq} class='item'></div>`
         : '';
     });
 

@@ -1,0 +1,20 @@
+#itemSort{
+    padding: 0 $padding_samll;
+
+    .sortBtn{
+        width: $btn_width;
+        height: $btn_height;
+        border: 1px solid $color_main;
+        border-radius: 5px;
+
+        color: white;
+        background-color: $color_btn_active;
+
+        text-align: center;
+
+        option{
+            background-color: white;
+        }
+    }
+
+}

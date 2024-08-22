@@ -56,10 +56,10 @@ export default class App extends Component {
   // 자식 컴포넌트가 위치할 dom 요소
   template() {
     return `
-    <div data-component="itemAdd"></div>
-    <div data-component="itemFilter"></div>
-    <div data-component="ItemSort"></div>
-    <div data-component="itemList" class="itemList"></div>
+    <div data-component='itemAdd' id='itemAdd'></div>
+    <div data-component='itemFilter' id='itemFilter'></div>
+    <div data-component='itemSort' id='itemSort'></div>
+    <div data-component='itemList' id='itemList'></div>
     `;
   }
 
@@ -82,7 +82,7 @@ export default class App extends Component {
     const $ItemFilter = this.$target.querySelector(
       '[data-component="itemFilter"]',
     );
-    const $ItemSort = this.$target.querySelector('[data-component="ItemSort"]');
+    const $ItemSort = this.$target.querySelector('[data-component="itemSort"]');
 
     // new 컴포넌트명('DOM'위치 , 전달할 props)
     new ItemList($itemList, {
@@ -104,6 +104,7 @@ export default class App extends Component {
       setSort: setSort.bind(this),
     });
     new ItemFilter($ItemFilter, {
+      filterVal: this.state.filterVal,
       workCount: this.state.workCount,
       setFilter: setFilter.bind(this),
     });
@@ -118,7 +119,7 @@ export default class App extends Component {
   loaded() {
     this.setWorkCount();
     this.setSort();
-    console.log('loaded', this.state);
+    // console.log('loaded', this.state);
   }
 
   /** setState 함수 */
@@ -155,7 +156,7 @@ export default class App extends Component {
       items[updateIndex][key] = NewItem[key];
     }
     this.setState({ items: items });
-    console.log('update : ', this.state);
+    // console.log('update : ', this.state);
   }
 
   // 삭제하기

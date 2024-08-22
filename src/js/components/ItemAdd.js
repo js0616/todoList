@@ -7,9 +7,9 @@ export default class ItemAdd extends Component {
   template() {
     return `
       <input class='title' name='title' placeholder="제목" autocomplete="off" />
-      <input class='contents' name='content' placeholder="내용" autocomplete="off" />
-      <button class='addBtn' type='button'>제출</button>
       <div class='error'></div>
+      <textarea class='contents' name='content' placeholder="내용" autocomplete="off" /></textarea>
+      <button class='addBtn' type='button'>추가하기</button>
     `;
   }
 
@@ -23,9 +23,10 @@ export default class ItemAdd extends Component {
       let error = document.querySelector('.error');
       let date = currentTime();
 
-      if (title == '' || contents == '') {
+      if (title == '') {
         // error 처리
-        error.innerHTML = '입력 값을 확인해 주세요';
+        error.innerHTML = '제목을 입력해 주세요 !!';
+        inputFocus('.title');
       } else {
         // state 추가
         addItem({
@@ -34,24 +35,29 @@ export default class ItemAdd extends Component {
           date: date,
         });
 
-        inputFocus('.title');
         setWorkCount();
         setSort();
+        inputFocus('.title');
       }
     };
 
     // 초기 focus
-    inputFocus('.title');
+    // inputFocus('.title');
 
-    // 클릭 이벤트
+    // 버튼 클릭 이벤트
     this.addEvent('click', '.addBtn', () => {
       inputCheck();
     });
 
-    // enter키 이벤트
-    this.addEvent('keyup', '.title, .contents', e => {
+    // 제목 이벤트
+    this.addEvent('keydown', '.title', e => {
       if (e.key === 'Enter') {
         inputCheck();
+      }
+
+      let error = document.querySelector('.error');
+      if (e.target.value !== '') {
+        error.innerHTML = '';
       }
     });
   }

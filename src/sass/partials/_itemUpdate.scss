@@ -1,0 +1,59 @@
+#itemUpdate {
+    display: flex;
+    flex-direction: column;
+    .upTitle{
+        padding: $padding_samll;
+        border: none;
+        font-weight: bold;
+        font-size: $font_size_medium;
+        background-color: $color_bg;
+
+        &:focus {
+            outline: none;
+            border-bottom: 2px solid $color_main;
+        }
+    }
+
+    .upContents {
+        // width: 92%;
+        padding: $padding_samll;
+        border: none;
+        resize: none;
+        height: 150px;
+
+        // 줄긋기
+        background-attachment: local;
+        background-image:
+            // 라인 좌우 여백
+            linear-gradient(to right, $color_bg 10px, transparent 10px),
+            linear-gradient(to left, $color_bg 10px, transparent 10px),
+            repeating-linear-gradient($color_bg, $color_bg $background_line+(-1), $color_main $background_line);
+
+        line-height: $background_line;
+        padding-top: 3px;
+
+        &:focus {
+            outline: none;
+            border: 2px solid $color_main;
+        }
+    }
+    
+    .error {
+        padding: 0 $padding_samll;
+        color: $color_error;
+    }
+
+    .upBtn {
+        padding: $padding_samll;
+
+        text-align: center;
+        border: 1px solid $color_main;
+        width: $btn_width;
+        background-color: white;
+
+        &:hover {
+            background-color: $color_btn_active;
+            color: white;
+        }
+    }
+}

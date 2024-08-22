@@ -7,9 +7,9 @@ export default class ItemModal extends Component {
     const { item } = this.props;
     return `
         <div class=mdInnerBox>
-          <span class='mdCloseBtn'> X </span>
           <div> 
-            <b> No. ${item.seq} </b> 
+            <div class=title> No. ${item.seq} </div> 
+            <div class='mdCloseBtn'> X </div>
           </div>
           <div>
             제목

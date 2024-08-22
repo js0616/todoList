@@ -6,10 +6,12 @@ export default class ItemUpdate extends Component {
   template() {
     const { item } = this.props;
     return `
-        <div>제목 : <input class='upTitle' value='${item.title}' placeholder="제목" autocomplete="off" /> </div>
-        <div>내용 : <input class='upContents' value='${item.contents}' placeholder="내용" autocomplete="off" /> </div>
+      <div id='itemUpdate'>
+        <input class='upTitle' value='${item.title}' placeholder="제목" autocomplete="off" />
         <div class='error'></div>
+        <textarea class='upContents' value='${item.contents}' placeholder="내용" autocomplete="off" />${item.contents}</textarea>
         <button class='upBtn'>수정완료</button>
+      </div>
     `;
   }
 
@@ -27,7 +29,7 @@ export default class ItemUpdate extends Component {
       let error = document.querySelector(`[data-Item${item.seq}] .error`);
 
       // 로직
-      if (title == '' || contents == '') {
+      if (title == '') {
         error.innerHTML = '입력 값을 확인해 주세요';
       } else {
         // title, contents, date,  + write
