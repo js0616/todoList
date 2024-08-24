@@ -5,6 +5,7 @@ import ItemList from './components/ItemList.js';
 import ItemAdd from './components/ItemAdd.js';
 import ItemFilter from './components/ItemFilter.js';
 import ItemSort from './components/ItemSort.js';
+import Nav from './components/Nav.js';
 
 export default class App extends Component {
   // 초기 state
@@ -50,16 +51,21 @@ export default class App extends Component {
         going: 0,
         end: 0,
       },
+      settingBtn: false,
+      settingTabnum: 'color',
     };
   }
 
   // 자식 컴포넌트가 위치할 dom 요소
   template() {
     return `
-    <div data-component='itemAdd' id='itemAdd'></div>
-    <div data-component='itemFilter' id='itemFilter'></div>
-    <div data-component='itemSort' id='itemSort'></div>
-    <div data-component='itemList' id='itemList'></div>
+    <div data-component='Nav' id='nav'></div>
+    <div id='main'>
+      <div data-component='itemAdd' id='itemAdd'></div>
+      <div data-component='itemFilter' id='itemFilter'></div>
+      <div data-component='itemSort' id='itemSort'></div>
+      <div data-component='itemList' id='itemList'></div>
+    </div>
     `;
   }
 
@@ -75,8 +81,11 @@ export default class App extends Component {
       deleteItem,
       setSortType,
       setSort,
+      setSetting,
+      setSettingTabnum,
     } = this;
 
+    const $Nav = this.$target.querySelector('[data-component="Nav"]');
     const $itemList = this.$target.querySelector('[data-component="itemList"]');
     const $itemAdd = this.$target.querySelector('[data-component="itemAdd"]');
     const $ItemFilter = this.$target.querySelector(
@@ -85,6 +94,12 @@ export default class App extends Component {
     const $ItemSort = this.$target.querySelector('[data-component="itemSort"]');
 
     // new 컴포넌트명('DOM'위치 , 전달할 props)
+    new Nav($Nav, {
+      settingBtn: this.state.settingBtn,
+      settingTabnum: this.state.settingTabnum,
+      setSetting: setSetting.bind(this),
+      setSettingTabnum: setSettingTabnum.bind(this),
+    });
     new ItemList($itemList, {
       items: this.state.items,
       filterVal: this.state.filterVal,
@@ -199,6 +214,19 @@ export default class App extends Component {
   setFilter(NewValue) {
     this.setState({
       filterVal: NewValue,
+    });
+  }
+
+  //
+  setSetting(NewValue) {
+    this.setState({
+      settingBtn: NewValue,
+    });
+  }
+
+  setSettingTabnum(NewValue) {
+    this.setState({
+      settingTabnum: NewValue,
     });
   }
 

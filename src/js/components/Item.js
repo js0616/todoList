@@ -13,7 +13,7 @@ export default class Item extends Component {
       <div class='date'>작성시간 : ${item.date.slice(0, -3)} </div>
       <div class='btns'>
         <select name="workState" class="workState">
-          <option value='wait' ${item.workState === 'wait' ? 'selected' : ''}>할일</option>
+          <option value='wait' ${item.workState === 'wait' ? 'selected' : ''}>대기중</option>
           <option value='going' ${item.workState === 'going' ? 'selected' : ''}>진행중</option>
           <option value='end' ${item.workState === 'end' ? 'selected' : ''}>종료</option>
         </select>

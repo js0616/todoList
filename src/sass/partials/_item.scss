@@ -1,4 +1,7 @@
 #itemList{
+    width: $box_size;
+    box-sizing: border-box;
+    
     .item {
         padding: $padding_samll;
         margin: $padding_samll 0;

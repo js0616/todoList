@@ -9,18 +9,31 @@
 }
 
 $font_family: 'Pretendard-Regular', arial, sans-serif;
-
 $font_size_small: 18px;
 $font_size_medium: 24px;
 
+:root {
+    --color-main: lightskyblue; // Default color
+    --color-bg: #f8fcff; // Default color
+    --color-font: #25a6f6; // Default color
+    --color-btn: #a9dcfb; // Default color
+    --color-btn_active: #6fc4f9; // Default color
+}  
+
 // color
-// $color_main: lightcoral;
-$color_main: lightskyblue;
-$color_bg: lighten($color_main, 23);
-$color_font: darken($color_main, 20);
+$color_main: var(--color-main);
+$color_bg : var(--color-bg);
+$color_font : var(--color-font);
+$color_btn : var(--color-btn);
+$color_btn_active : var(--color-btn_active);
+
+// $color_main: pink;
+// $color_bg: lighten($color_main, 12);
+// $color_font: darken($color_main, 15);
+// $color_btn : lighten($color_main, 5);
+// $color_btn_active : darken($color_main, 6);
+
 $color_error : darken(red , 3);
-$color_btn : lighten($color_main, 7);
-$color_btn_active : darken($color_main, 5);
 
 
 // size

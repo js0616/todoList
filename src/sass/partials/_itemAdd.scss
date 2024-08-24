@@ -1,4 +1,7 @@
 #itemAdd {
+    width: $box_size;
+    box-sizing: border-box;
+    
     padding: $padding_samll;
     border: 2px solid $color_main;
     background-color: $color_bg;
